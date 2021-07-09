@@ -1,35 +1,29 @@
 let dir = "html/"
 i = 0;
 let mapsNum = [], backUpMapsNum = [], filteredNum = []; //indicadores de mapa
-let vehicleAll = [], circuitAll = [], monthAll = [], dayAll = [], zoneAll = [], lapsusAll = [], extentionAll = [], garbageDumpAll = [];
-let vehicleFil = [], circuitFil = [], monthFil = [], dayFil = [], zoneFil = [], lapsusFil = [], extentionFil = [], garbageDumpFil = [];
+let all = [[],[],[],[],[],[],[],[]];
+let filters = [[],[],[],[],[],[],[],[]];
+const slice = ["c", "v", "m", "d", "z", "l", "e", "b"];
 
 function ini(){
     maps = JSON.parse(data);
     maxMaps = maps.length;
     let cont = 0;
-    for (element of maps){
-        
-        vehicleAll[cont] = element.slice(6, 9);
-        circuitAll[cont] = element.slice(1, 5);
-        monthAll[cont] = element.slice(10, 12);
-        dayAll[cont] = element.slice(13, 15);
-        zoneAll[cont] = element.slice(16, 22);
-        lapsusAll[cont] = element.slice(23, 24);
-        extentionAll[cont] = element.slice(25, 26);
-        garbageDumpAll[cont] = element.slice(27, 28);
+    for (let map of maps){
+        for (let n = 0 ; n < slice.length; n++){
+            cutIni = maps[0].indexOf(slice[n])+1;
+            cutFin = maps[0].indexOf(slice[n+1]);
+            if (cutFin == -1){
+                cutFin = maps[0].length-5;
+            }
+            all[n][cont] = map.slice(cutIni,cutFin);
+        }
         mapsNum[cont] = cont + 1;
         cont++;
-        
-    };
-    vehicleFil = [... new Set(vehicleAll)];
-    circuitFil = [... new Set(circuitAll)];
-    monthFil = [... new Set(monthAll)];
-    dayFil = [... new Set(dayAll)];
-    zoneFil = [... new Set(zoneAll)];
-    lapsusFil = [... new Set(lapsusAll)];
-    extentionFil = [... new Set(extentionAll)];
-    garbageDumpFil = [... new Set(garbageDumpAll)];
+    }
+    for (let l = 0; l < 8 ; l++){
+        filters[l] = [... new Set(all[l])];
+    }
     backUpMapsNum = mapsNum;
     modify();
     }
@@ -55,223 +49,251 @@ function siguiente(){ //funcion boton siguiente
 }
 
 function selection(){
-    reset();
-    preFiltered = mapsNum;
-    filteredNum = mapsNum;
-    console.log(preFiltered);
+    maxMaps = maps.length;
+    preFiltered = backUpMapsNum;
+    filteredNum = backUpMapsNum;
+    i = 0;
     let confirm, filter = 0, valid = 0;
-
-    if (document.getElementById("vehicle").checked){
-        filter++;
-        confirm = 0;
-        let vehicle = document.getElementById("vehicleSet").value;
-        vehicle = vehicle.padStart(3,"0");
-        if(vehicleFil.includes(vehicle)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (vehicleAll[k] == vehicle){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
+    let fils = [circuit, vehicle, month, day, zone, lapsus, extention, garbageDump];
+    const nameFils = ["circuit", "vehicle", "month", "day", "zone", "lapsus", "extention", "garbageDump"];
+    const checkboxes = [1,2,5,6,7];
+    for (let m = 0; m < 8 ; m++){
+        if (document.getElementById(nameFils[m]).checked){
+            filter++;
+            confirm = 0;
+            if (checkboxes.includes(m)) {
+                filteredNum = [];
+                for (let v = 0 ; v < filters[m].length ; v++){
+                    if (document.getElementById(nameFils[m]+filters[m][v]).checked){
+                        fils[m] = filters[m][v];
+                        for (let k = 0 ; k < maxMaps ; k++){
+                            if (all[m][k] == fils[m]){
+                                if (preFiltered.includes(k+1)){
+                                    confirm ++;
+                                    filteredNum.push(k+1);
+                                }
+                            }
+                        }
                     }
                 }
+                if (confirm > 0){
+                    valid++;
+                }
+                preFiltered = filteredNum;
             }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
 
-    if (document.getElementById("circuit").checked == true){
-        filter++;
-        confirm = 0;
-        let circuit = document.getElementById("circuitSet").value;
-        circuit = circuit.padStart(4,"0");
-        if(circuitFil.includes(circuit)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (circuitAll[k] == circuit){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
+            else if (m == 4) {
+                filteredNum = [];
+                let filZone = 0;
+                for (let v = 0 ; v < filters[m][0].length ; v++){
+                    if (document.getElementById(nameFils[m]+(v+1)).checked){
+                        filComp = 1 * 10 ** (5-v);
+                        filZone = filZone + filComp;
                     }
                 }
-            }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
-
-    if (document.getElementById("month").checked == true){
-        filter++;
-        confirm = 0;
-        let month = document.getElementById("monthSet").value;
-        month = month.padStart(2,"0");
-        if(monthFil.includes(month)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (monthAll[k] == month){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
+                fils[m] = filZone.toString();
+                fils[m] = fils[m].padStart(filters[m][0].length,"0");
+                for (let k = 0 ; k < maxMaps ; k++){
+                    if (all[m][k] == fils[m]){
+                        if (preFiltered.includes(k+1)){
+                            confirm ++;
+                            filteredNum.push(k+1);
+                        }
                     }
                 }
+                if (confirm > 0){
+                    valid++;
+                }
+                preFiltered = filteredNum;    
             }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
-
-    if (document.getElementById("day").checked == true){
-        filter++;
-        confirm = 0;
-        let day = document.getElementById("daySet").value;
-        day = day.padStart(2,"0");
-        console.log(day);
-        console.log(dayAll);
-        console.log(dayFil);
-        if(dayFil.includes(day)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (dayAll[k] == day){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
+              
+            else {
+            fils[m] = document.getElementById(nameFils[m]+"Set").value;
+            fils[m] = fils[m].padStart(filters[m][0].length,"0");
+            if(filters[m].includes(fils[m])){
+                filteredNum = [];
+                for (let k = 0 ; k < maxMaps ; k++){
+                    if (all[m][k] == fils[m]){
+                        if (preFiltered.includes(k+1)){
+                            confirm ++;
+                            filteredNum.push(k+1);
+                        }
                     }
                 }
-            }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
-
-    if (document.getElementById("zone").checked == true){
-        filter++;
-        confirm = 0;
-        let zone = document.getElementById("zoneSet").value;
-        zone = zone.padStart(6,"0");
-        if(zoneFil.includes(zone)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (zoneAll[k] == zone){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
-                    }
+                if (confirm > 0){
+                    valid++;
+                }
+                preFiltered = filteredNum;
                 }
             }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
-
-    if (document.getElementById("lapsus").checked == true){
-        filter++;
-        confirm = 0;
-        let lapsus = document.getElementById("lapsusSet").value;
-        if(lapsusFil.includes(lapsus)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (lapsusAll[k] == lapsus){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
-                    }
-                }
-            }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
-
-    if (document.getElementById("extention").checked == true){
-        filter++;
-        confirm = 0;
-        let extention = document.getElementById("extentionSet").value;
-        if(extentionFil.includes(extention)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (extentionAll[k] == extention){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
-                    }
-                }
-            }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
-        }
-    }
-
-    if (document.getElementById("garbageDump").checked == true){
-        filter++;
-        confirm = 0;
-        let garbageDump = document.getElementById("garbageDumpSet").value;
-        if(garbageDumpFil.includes(garbageDump)){
-            filteredNum = [];
-            for (let k = 0 ; k < maxMaps ; k++){
-                if (garbageDumpAll[k] == garbageDump){
-                    if (preFiltered.includes(k+1)){
-                        confirm ++;
-                        filteredNum.push(k+1);
-                    }
-                }
-            }
-            if (confirm > 0){
-                valid++;
-            }
-            preFiltered = filteredNum;
         }
     }
 
     if (valid == filter){
-    console.log(filteredNum);
-    document.getElementById("show").innerHTML = "";
-    maxMaps = filteredNum.length;     
-    mapsNum = filteredNum;
-    i = 0;
-    modify();
+        document.getElementById("show").innerHTML = "";
+        maxMaps = filteredNum.length;     
+        mapsNum = filteredNum;
+        i = 0;
+        modify();
     }
     else {
         document.getElementById("show").innerHTML = "Filtro no disponible";
     }
 }
+
+function circuit(){
+    if (document.getElementById("circuit").checked){
+        document.getElementById("c").innerHTML = '<input type="text" id="circuitSet"></input>';
+    }
+    else {
+        document.getElementById("c").innerHTML = "";    
+    }
+}
+
+function vehicle(){
+    if (document.getElementById("vehicle").checked){
+        for (let v = 0 ; v < filters[1].length ; v++){
+            const vehicleAdd = document.getElementById('v');
+            let vehicleCheckbox =  '<input type="checkbox" id="vehicle' + filters[1][v] + '">' + 
+            '<label for="vehicle' + filters[1][v] + '">' + filters[1][v] + '</label>';
+            vehicleAdd.insertAdjacentHTML('beforeend', vehicleCheckbox);
+        }  
+    }
+    else {
+        document.getElementById("v").innerHTML = "";    
+    }
+}
+
+function month(){
+    if (document.getElementById("month").checked){
+        for (let m = 0 ; m < filters[2].length ; m++){
+            const monthAdd = document.getElementById('m');
+            let monthCheckbox =  '<input type="checkbox" id="month' + filters[2][m] + '">' + 
+            '<label for="month' + filters[2][m] + '">' + filters[2][m] + '</label>';
+            monthAdd.insertAdjacentHTML('beforeend', monthCheckbox);
+        }  
+    }
+    else {
+        document.getElementById("m").innerHTML = "";    
+    }
+}
+
+function day(){
+    if (document.getElementById("day").checked){
+        const dayAdd = document.getElementById("d");
+        dayText = '<input type="text" id="daySet"></input>';
+        dayAdd.insertAdjacentHTML('beforeend', dayText);
+    }
+    else {
+        document.getElementById("d").innerHTML = "";    
+    }
+}
+
+function zone(){
+    if (document.getElementById("zone").checked){
+        const zones = ["1prl" , "1prp","2","3","4","5"];
+        for (let z = 0 ; z < filters[4][0].length ; z++){
+            const zoneAdd = document.getElementById('z');
+            let zoneCheckbox =  '<input type="checkbox" id="zone' + (z+1) + '">' + zones[z];
+            zoneAdd.insertAdjacentHTML('beforeend', zoneCheckbox);
+        }  
+    }
+    else {
+        document.getElementById("z").innerHTML = "";    
+    }
+}
+
+function lapsus(){
+    if (document.getElementById("lapsus").checked){
+        lapsuses = ["1 a 54min", "55min a 228min","229min a 275min","276min a 338min","339min a 698min"]
+        for (let l = 0 ; l < filters[5].length ; l++){
+            const lapsusAdd = document.getElementById('l');
+            let lapsusRadio =  '<input type="radio" name="lap" id="lapsus'+(l+1)+'" value="'+(l+1)+'">'+lapsuses[l];
+            lapsusAdd.insertAdjacentHTML('beforeend', lapsusRadio);
+        }  
+    }
+    else {
+        document.getElementById("l").innerHTML = "";    
+    }
+}
+
+function extention(){
+    if (document.getElementById("extention").checked){
+        extentions = ["101m a 9137m", "9138m a 42363m","42364m a 57049m","57050m a 70349m","70350m a 161687"]
+        for (let e = 0 ; e < filters[6].length ; e++){
+            const extentionAdd = document.getElementById('e');
+            let extentionRadio =  '<input type="radio" name="ex" id="extention'+(e+1)+'" value="'+(e+1)+'">'+extentions[e];
+            extentionAdd.insertAdjacentHTML('beforeend', extentionRadio);
+        }  
+    }
+    else {
+        document.getElementById("e").innerHTML = "";    
+    }
+}
+
+function garbageDump(){
+    if (document.getElementById("garbageDump").checked){
+        for (let g = 0 ; g < filters[7].length ; g++){
+            const garbageDumpAdd = document.getElementById('b');
+            let garbageDumpRadio =  '<input type="radio" name="gb" id="garbageDump'+g+'" value="'+g+'">'+g; 
+            garbageDumpAdd.insertAdjacentHTML('beforeend', garbageDumpRadio);
+        }  
+    }
+    else {
+        document.getElementById("b").innerHTML = "";    
+    }
+}
+
 function reset(){
     mapsNum = backUpMapsNum;
     maxMaps = maps.length;
     i = 0;
     modify();
-    console.log(mapsNum);
+    clean();
+    ini();
 }
+
 function modify(){
     document.getElementById("carr").src = dir + maps[mapsNum[i]-1]; //modifica el enlace
-    document.getElementById("nom").innerHTML = maps[mapsNum[i]-1];
     document.getElementById("num").innerHTML = "Circuito numero: " + (mapsNum[i]); //Funcion para moficar numero de circuito
-    document.getElementById("c").innerHTML = "Circuito: "+maps[mapsNum[i]-1].substring(1, 5);
-    document.getElementById("v").innerHTML = "Vehiculo: "+maps[mapsNum[i]-1].substring(6, 9);
-    document.getElementById("m").innerHTML = "Mes: "+maps[mapsNum[i]-1].substring(10, 12);
-    document.getElementById("d").innerHTML = "Dia: "+maps[mapsNum[i]-1].substring(13, 15);
-    document.getElementById("z").innerHTML = "Zona: "+maps[mapsNum[i]-1].substring(16, 22);
-    document.getElementById("l").innerHTML = "Lapso: "+maps[mapsNum[i]-1].substring(23, 24);
-    document.getElementById("e").innerHTML = "Extension: "+maps[mapsNum[i]-1].substring(25, 26);
-    document.getElementById("b").innerHTML = "Basural: "+maps[mapsNum[i]-1].substring(27, 28);
-    
+    document.getElementById("data").innerHTML = "";
+    const labels = ["Circuito: ","Vehiculo: ","Mes: ","Dia: ","Zonas: ","Lapso: ","Extension: ","Basural: "];
+    const zones = ["1prl" , "1prp","2","3","4","5"];
+    let modifyData;
+    const dataAdd = document.getElementById('data');
+    dataAdd.insertAdjacentHTML('beforeend', '<h3>Circuitos Totales: ' + maxMaps + '</h3>');
+    for (let d = 0 ; d < filters.length ; d++){
+        if (d == 4){
+            let compZone = all[d][mapsNum[i]-1];
+            modifyData =  '<h3>' + labels[d];
+            for (z = 0; z < filters[d][0].length; z++){
+                if (compZone[z] == "1"){
+                    modifyData = modifyData + zones[z] +", ";
+                }
+            }
+            modifyData = modifyData.replace(/,\s$/, "");
+            modifyData = modifyData.replace(/,(?=\s(?=\d(?=\s*$)))/, " y");
+            modifyData = modifyData.replace(/:\s$/, ": Indefinida");
+            modifyData = modifyData + '</h3>';
+        }
+        else if (d != 4) {
+            modifyData =  '<h3>' + labels[d] + Number(all[d][mapsNum[i]-1]) + '</h3>';
+        }
+        dataAdd.insertAdjacentHTML('beforeend', modifyData);
+    }  
+}
 
-    console.log(maps[mapsNum[i]-1]);
-    console.log(mapsNum[i]-1);
-    console.log(i);
+function clean(){
+    const clean = document.getElementsByTagName("input");
+    for ( let c=0 ; c < clean.length ; c++ ){
+        if (clean[c].type == "checkbox" || clean[c].type == "radio"){
+            clean[c].checked = false;
+        }
+    }
+    for ( let s=0 ; s < slice.length ; s++ ){
+        document.getElementById(slice[s]).innerHTML = "";    
+    }
+    document.getElementById("show").innerHTML = "";
+    document.getElementById("data").innerHTML = "";
 }
 
