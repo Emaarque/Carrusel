@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title> Carrusel</title>
+        <link rel="stylesheet" href="css/estilos.css">   
+    </head>
+
+    <body>
+        <!--<center>-->
+            <div class="card-map">
+                <div>
+                    <h1 class="txt1" id = "num"></h1>
+                    <iframe class="mapa" id="carr" src=""></iframe>
+                    <div class="form-row">
+                        <button class="btn" onclick="anterior()">Anterior</button>
+                        <button class="btn" onclick="siguiente()">Siguiente</button>
+                    </div>
+                    
+
+                    
+                    <div class="card-container">
+                        <label class="checkbox-container">
+                            <input class="checkbox" type="checkbox" id="circuit"> <span>Circuito:</span>
+                        </label>
+                        <input class="textbox" type="text" id="circuitSet"> 
+                        <br>
+                        <label class="checkbox-container"> 
+                            <input class="checkbox" type="checkbox" id="vehicle"> <span>Vehiculo:</span>
+                        </label>  
+                        <input class="textbox" type="text" id="vehicleSet">
+                        <br>
+                        <label class="checkbox-container">
+                            <input class="checkbox" type="checkbox" id="month"> <span>Mes:</span>
+                        </label>
+                        <input class="textbox" type="text" id="monthSet">
+                        <br>
+                        <label class="checkbox-container">
+                            <input class="checkbox" type="checkbox" id="day"> <span>Dia:</span>
+                        </label>
+                        <input class="textbox" type="text" id="daySet">
+                        <br>
+                        <label class="checkbox-container">
+                            <input class="checkbox" type="checkbox" id="zone"> <span>Zona:</span> 
+                        </label>
+                        <input class="textbox" type="text" id="zoneSet"> 
+                        <br>
+                        <label class="checkbox-container"> 
+                            <input class="checkbox" type="checkbox" id="lapsus"> <span>Lapso:</span>  
+                        </label>
+                        <input class="textbox" type="text" id="lapsusSet">
+                        <br>
+                        <label class="checkbox-container">
+                            <input class="checkbox" type="checkbox" id="extention"> <span>Extensión:</span> 
+                        </label>
+                        <input class="textbox" type="text" id="extentionSet">
+                        <br>
+                        <label class="checkbox-container">
+                            <input class="checkbox" type="checkbox" id="garbageDump"> <span>Basural:</span> 
+                        </label>
+                        <input class="textbox" type="text" id="garbageDumpSet">
+                        <br>
+                        <input type="button" class="btnb" value="Buscar" onclick="selection()"> 
+                        <input type="button" class="btnb" value="Reset" onclick="reset()">
+                        <br>
+                        <p class="textalert" id = "show"></p>
+                        <p class="textalert" id = "alert"></p>
+
+                        <div class="card-info">
+                            <p class="info" id = "nom"></p>
+                            <p class="info" id = "c"></p>
+                            <p class="info" id = "v"></p>
+                            <p class="info" id = "m"></p>
+                            <p class="info" id = "d"></p>
+                            <p class="info" id = "z"></p>
+                            <p class="info" id = "l"></p>
+                            <p class="info" id = "e"></p>
+                            <p class="info" id = "b"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        <!--</center>-->    
+        <script type="text/javascript" src="html/nombres_mapas.txt"></script>
+        <script type="text/javascript" src="js/carrousel.js"></script>
+    </body>
+</html>
+

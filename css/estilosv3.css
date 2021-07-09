@@ -1,0 +1,89 @@
+/*:root{}*/
+
+body {
+    font-family: 'Titilium Web', sans-serif;
+}
+
+.card-map{
+    max-width:610px;
+   /*left: 200px;*/
+
+
+}
+
+.mapa {
+    /*height:801px; 
+    width:900px;*/
+    height:600px; 
+    width: 100%;
+    Position: relative;
+    left:300px;
+}
+
+.card-info{
+    Position: absolute;
+    left:200px;
+    top: 20px;
+    
+}
+.info{
+    margin-bottom: 30px;
+
+}
+.textalert{
+    color:red;
+    margin-left: 20px;
+     font-weight: bold;
+     border: black;
+    
+}
+.card-container{
+    Position: fixed;
+    left:0px;
+    top: 60px;
+    height: 100%;
+    background: rgb(9, 0, 46);
+
+}
+.checkbox-container{
+    display:block;
+    Position: relative;
+    cursor:pointer;
+    margin-top: 15px;
+
+
+}
+.btn{
+    height: 30px;
+    width: 300px;
+    margin-top: 5px;
+    left:300px;
+    position: relative;
+
+}
+.btnb{
+    margin-top: 15px;
+    height: 25px;
+    width: 90px;
+
+
+    
+    
+}
+/*.checkbox {
+
+    Position: relative;
+
+}
+
+.txtcheckbox {
+    position: relative;
+    
+
+}*/
+
+.textbox {
+
+    Position: relative;
+    
+}
