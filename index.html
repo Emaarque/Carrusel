@@ -2,85 +2,61 @@
     <head>
         <meta charset="UTF-8">
         <title> Carrusel</title>
-        <link rel="stylesheet" href="css/estilos.css">   
+        <link rel="stylesheet" href="estilos.css">   
     </head>
 
     <body>
-        <!--<center>-->
-            <div class="card-map">
-                <div>
-                    <h1 class="txt1" id = "num"></h1>
-                    <iframe class="mapa" id="carr" src=""></iframe>
-                    <div class="form-row">
-                        <button class="btn" onclick="anterior()">Anterior</button>
-                        <button class="btn" onclick="siguiente()">Siguiente</button>
-                    </div>
-                    
-
-                    
-                    <div class="card-container">
-                        <label class="checkbox-container">
-                            <input class="checkbox" type="checkbox" id="circuit"> <span>Circuito:</span>
-                        </label>
-                        <input class="textbox" type="text" id="circuitSet"> 
-                        <br>
-                        <label class="checkbox-container"> 
-                            <input class="checkbox" type="checkbox" id="vehicle"> <span>Vehiculo:</span>
-                        </label>  
-                        <input class="textbox" type="text" id="vehicleSet">
-                        <br>
-                        <label class="checkbox-container">
-                            <input class="checkbox" type="checkbox" id="month"> <span>Mes:</span>
-                        </label>
-                        <input class="textbox" type="text" id="monthSet">
-                        <br>
-                        <label class="checkbox-container">
-                            <input class="checkbox" type="checkbox" id="day"> <span>Dia:</span>
-                        </label>
-                        <input class="textbox" type="text" id="daySet">
-                        <br>
-                        <label class="checkbox-container">
-                            <input class="checkbox" type="checkbox" id="zone"> <span>Zona:</span> 
-                        </label>
-                        <input class="textbox" type="text" id="zoneSet"> 
-                        <br>
-                        <label class="checkbox-container"> 
-                            <input class="checkbox" type="checkbox" id="lapsus"> <span>Lapso:</span>  
-                        </label>
-                        <input class="textbox" type="text" id="lapsusSet">
-                        <br>
-                        <label class="checkbox-container">
-                            <input class="checkbox" type="checkbox" id="extention"> <span>Extensión:</span> 
-                        </label>
-                        <input class="textbox" type="text" id="extentionSet">
-                        <br>
-                        <label class="checkbox-container">
-                            <input class="checkbox" type="checkbox" id="garbageDump"> <span>Basural:</span> 
-                        </label>
-                        <input class="textbox" type="text" id="garbageDumpSet">
-                        <br>
-                        <input type="button" class="btnb" value="Buscar" onclick="selection()"> 
-                        <input type="button" class="btnb" value="Reset" onclick="reset()">
-                        <br>
-                        <p class="textalert" id = "show"></p>
-                        <p class="textalert" id = "alert"></p>
-
-                        <div class="card-info">
-                            <p class="info" id = "nom"></p>
-                            <p class="info" id = "c"></p>
-                            <p class="info" id = "v"></p>
-                            <p class="info" id = "m"></p>
-                            <p class="info" id = "d"></p>
-                            <p class="info" id = "z"></p>
-                            <p class="info" id = "l"></p>
-                            <p class="info" id = "e"></p>
-                            <p class="info" id = "b"></p>
-                        </div>
-                    </div>
+        <center>
+            <div>
+                <h1 class="txt1" id = "num"></h1>
+                <iframe id="carr" height="700" width="800" src=""></iframe>
+                <div class="form-row">
+                    <button class="btn" onclick="anterior()">Anterior</button>
+                    <button class="btn" onclick="siguiente()">Siguiente</button>
                 </div>
+
+                <h4 id = "alert"></h4>
+                <div id = "data"></div>
+                <forms>
+                    <input type="checkbox" id="circuit" name="filters" onclick="circuit()">
+                    <label for="circuit">Circuito: </label>
+                        <div id = "c">
+                        </div>
+                    <input type="checkbox" id="vehicle" name="filters" onclick="vehicle()">
+                    <label for="vehicle">Vehiculos: </label>
+                        <div id = "v">
+                        </div>
+                    <input type="checkbox" id="month" name="filters" onclick="month()">  
+                    <label for="month">Mes: </label>
+                        <div id = "m">
+                        </div>
+                    <input type="checkbox" id="day" name="filters" onclick="day()">
+                    <label for="day">Dia: </label>
+                        <div id = "d">
+                        </div>
+                    <input type="checkbox" id="zone" name="filters" onclick="zone()">
+                    <label for="zone">Zona: </label>
+                        <div id = "z">
+                        </div>
+                    <input type="checkbox" id="lapsus" name="filters" onclick="lapsus()">
+                    <label for="lapsus">Lapso: </label> 
+                        <div id = "l">
+                        </div>
+                    <input type="checkbox" id="extention" name="filters" onclick="extention()">
+                    <label for="extention">Extension: </label>
+                        <div id = "e">
+                        </div>
+                    <input type="checkbox" id="garbageDump" name="filters" onclick="garbageDump()">
+                    <label for="garbageDump">Basural: </label>  
+                        <div id = "b">
+                        </div>
+                    <input type="button" class="btnb" value="Buscar" onclick="selection()"> 
+                    <input type="button" class="btnb" value="Reset" onclick="reset()">
+                </forms>
+                <br>
+                <h4 id = "show"></h4>
             </div>
-        
-        <!--</center>-->    
+        </center>    
         <script type="text/javascript" src="html/nombres_mapas.txt"></script>
         <script type="text/javascript" src="js/carrousel.js"></script>
     </body>
