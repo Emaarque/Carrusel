@@ -2,63 +2,146 @@
     <head>
         <meta charset="UTF-8">
         <title> Carrusel</title>
-        <link rel="stylesheet" href="estilos.css">   
+        <link rel="stylesheet" href="css/estilos.css">
+        <!-- Latest compiled and minified CSS -->
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">-->
+<!-- Optional theme -->
+<!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">-->   
     </head>
 
     <body>
-        <center>
-            <div>
-                <h1 class="txt1" id = "num"></h1>
-                <iframe id="carr" height="700" width="800" src=""></iframe>
-                <div class="form-row">
-                    <button class="btn" onclick="anterior()">Anterior</button>
-                    <button class="btn" onclick="siguiente()">Siguiente</button>
-                </div>
+        <!--<center>-->
+            <div class="body-container">
 
-                <h4 id = "alert"></h4>
-                <div id = "data"></div>
-                <forms>
-                    <input type="checkbox" id="circuit" name="filters" onclick="circuit()">
-                    <label for="circuit">Circuito: </label>
-                        <div id = "c">
+                <div class="card-map">
+                    <!--<h1 class="txt1" id = "num"></h1>-->
+                    <iframe class="mapa" id="carr" src=""></iframe>
+                    <div class="form-row">
+                        <button class="btn1" onclick="anterior()">Anterior</button>
+                        <button class="btn2" onclick="siguiente()">Siguiente</button>
+                        <!--<div class="card-info" id = "data"></div>-->
+                        <!--<h4 id = "alert"></h4>-->
+                    </div>
+                    <!--<div>
+                        <table class="table">
+                            <tr>
+                                <th>Circuito</th>
+                                <th>Vehiculo</th>
+                                <th>Mes</th>
+                                <th>Dia</th>
+                                <th>Zona</th>
+                                <th>Lapso</th>
+                                <th>Extension</th>
+                                <th>Basural</th>
+                            </tr>
+                            <td><p id="num"></p></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <tr>
+                        </table>
+                    </div>  -->  
+                </div>
+                
+                
+
+                <div class="card-container">
+                    <div class="title-content">
+                        <div class="title-name">Busqueda</div>
+                    </div>
+                    <div class="txtalert">
+                        <h4 id = "show"></h4>
+                    </div>
+                    <forms>
+                        <div class="option-container">
+                            <div>
+                                <label class="checkbox-container" for="circuit">
+                                    <input class="filtr" type="checkbox" id="circuit" name="filters" onclick="circuit()">
+                                    <span class= "txtitlebox">Circuito: </span>
+                                </label>
+                            </div>
+                            <div class="subform" id = "c"></div>
                         </div>
-                    <input type="checkbox" id="vehicle" name="filters" onclick="vehicle()">
-                    <label for="vehicle">Vehiculos: </label>
-                        <div id = "v">
+                        <div class="option-container">
+                            <div>
+                                <label class="checkbox-container"  for="vehicle">
+                                    <input class="filtr" type="checkbox" id="vehicle" name="filters" onclick="vehicle()">
+                                    <span class="txtitlebox">Vehiculos: </span>
+                                </label>
+                            </div>
+                            <div class="subform" id = "v">
+                                
+                            </div>
                         </div>
-                    <input type="checkbox" id="month" name="filters" onclick="month()">  
-                    <label for="month">Mes: </label>
-                        <div id = "m">
+                        <div class="option-container">
+                            <div>    
+                                <label class="checkbox-container" for="month">
+                                    <input class="filtr" type="checkbox" id="month" name="filters" onclick="month()">  
+                                    <span class="txtitlebox">Mes: </span>
+                                </label>
+                            </div>
+                            <div class="subform" id = "m"></div>
                         </div>
-                    <input type="checkbox" id="day" name="filters" onclick="day()">
-                    <label for="day">Dia: </label>
-                        <div id = "d">
+                        <div class="option-container">
+                            <div>
+                                <label class="checkbox-container" for="day">
+                                    <input class="filtr" type="checkbox" id="day" name="filters" onclick="day()">
+                                    <span class="txtitlebox">Dia: </span>
+                                </label>
+                            </div>    
+                            <div class="subform" id = "d"></div>
                         </div>
-                    <input type="checkbox" id="zone" name="filters" onclick="zone()">
-                    <label for="zone">Zona: </label>
-                        <div id = "z">
+                        <div class="option-container">
+                            <div>    
+                                <label class="checkbox-container" for="zone">
+                                    <input class="filtr" type="checkbox" id="zone" name="filters" onclick="zone()">
+                                    <span class="txtitlebox">Zona: </span> 
+                                </label>
+                            </div>
+                            <div class="subform" id = "z"></div>
                         </div>
-                    <input type="checkbox" id="lapsus" name="filters" onclick="lapsus()">
-                    <label for="lapsus">Lapso: </label> 
-                        <div id = "l">
+                        <div class="option-container">
+                            <div>
+                                <label class="checkbox-container" for="lapsus">
+                                    <input class="filtr" type="checkbox" id="lapsus" name="filters" onclick="lapsus()">
+                                    <span class= "txtitlebox">Lapso: </span>
+                                </label>
+                            </div> 
+                            <div class="subform" id = "l"></div>
                         </div>
-                    <input type="checkbox" id="extention" name="filters" onclick="extention()">
-                    <label for="extention">Extension: </label>
-                        <div id = "e">
+                        <div class="option-container">
+                            <div>
+                                <label class="checkbox-container" for="extention">
+                                    <input class="filtr" type="checkbox" id="extention" name="filters" onclick="extention()">
+                                    <span class= "txtitlebox">Extension: </span>
+                                </label>
+                            </div>
+                            <div class="subform" id = "e"></div>
                         </div>
-                    <input type="checkbox" id="garbageDump" name="filters" onclick="garbageDump()">
-                    <label for="garbageDump">Basural: </label>  
-                        <div id = "b">
+                        <div class="option-container">
+                            <div>                                
+                                <label class="checkbox-container" for="garbageDump">
+                                    <input class="filtr" type="checkbox" id="garbageDump" name="filters" onclick="garbageDump()">
+                                    <span class= "txtitlebox">Basural: </span>
+                                </label>
+                            </div>  
+                            <div class="subform" id = "b"></div>
                         </div>
-                    <input type="button" class="btnb" value="Buscar" onclick="selection()"> 
-                    <input type="button" class="btnb" value="Reset" onclick="reset()">
-                </forms>
+                        <div class="btnsb">
+                            <input type="button" class="btnb1" value="Buscar" onclick="selection()"> 
+                            <input type="button" class="btnb2" value="Reset" onclick="reset()">
+                        </div>
+                    </forms>
+                </div>
                 <br>
-                <h4 id = "show"></h4>
+
             </div>
-        </center>    
+        <!--</center>-->    
         <script type="text/javascript" src="html/nombres_mapas.txt"></script>
         <script type="text/javascript" src="js/carrousel.js"></script>
     </body>
 </html>
-
