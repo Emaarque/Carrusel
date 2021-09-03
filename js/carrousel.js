@@ -137,13 +137,13 @@ function selection(){
         modify();
     }
     else {
-        document.getElementById("show").innerHTML = "Filtro no disponible";
+        document.getElementById("show").innerHTML = "Filtro sin coincidencia";
     }
 }
 
 function circuit(){
     if (document.getElementById("circuit").checked){
-        document.getElementById("c").innerHTML = '<input type="text" id="circuitSet"></input>';
+        document.getElementById("c").innerHTML = '<input class="textbox" type="text" placeholder="1610" id="circuitSet"></input>';
     }
     else {
         document.getElementById("c").innerHTML = "";    
@@ -154,8 +154,8 @@ function vehicle(){
     if (document.getElementById("vehicle").checked){
         for (let v = 0 ; v < filters[1].length ; v++){
             const vehicleAdd = document.getElementById('v');
-            let vehicleCheckbox =  '<input type="checkbox" id="vehicle' + filters[1][v] + '">' + 
-            '<label for="vehicle' + filters[1][v] + '">' + filters[1][v] + '</label>';
+            let vehicleCheckbox = '<label  class="sndcheckbox-container" for="vehicle' + filters[1][v] + '">' + '<input type="checkbox" id="vehicle' + filters[1][v] + '">' + 
+            '<span class="txtitlebox">' + filters[1][v] + '</span>'+'</label>';
             vehicleAdd.insertAdjacentHTML('beforeend', vehicleCheckbox);
         }  
     }
@@ -168,8 +168,8 @@ function month(){
     if (document.getElementById("month").checked){
         for (let m = 0 ; m < filters[2].length ; m++){
             const monthAdd = document.getElementById('m');
-            let monthCheckbox =  '<input type="checkbox" id="month' + filters[2][m] + '">' + 
-            '<label for="month' + filters[2][m] + '">' + filters[2][m] + '</label>';
+            let monthCheckbox =  '<label  class="sndcheckbox-container" for="month' + filters[2][m] + '">'+'<input type="checkbox" id="month' + filters[2][m] + '">' + 
+            '<span class="txtitlebox">' + Number(filters[2][m]) + '</span>'+'</label>';
             monthAdd.insertAdjacentHTML('beforeend', monthCheckbox);
         }  
     }
@@ -181,7 +181,7 @@ function month(){
 function day(){
     if (document.getElementById("day").checked){
         const dayAdd = document.getElementById("d");
-        dayText = '<input type="text" id="daySet"></input>';
+        dayText = '<input class="textbox" type="text" placeholder="dd" id="daySet"></input>';
         dayAdd.insertAdjacentHTML('beforeend', dayText);
     }
     else {
@@ -194,7 +194,8 @@ function zone(){
         const zones = ["1prl" , "1prp","2","3","4","5"];
         for (let z = 0 ; z < filters[4][0].length ; z++){
             const zoneAdd = document.getElementById('z');
-            let zoneCheckbox =  '<input type="checkbox" id="zone' + (z+1) + '">' + zones[z];
+            let zoneCheckbox = '<label  class="sndcheckbox-container" for="zone' + (z+1) + '">'+ '<input class="checkbox" type="checkbox" id="zone' + (z+1) + '">' +
+            '<span class="txtitlebox">'+ zones[z] + '</span>'+'</label>';
             zoneAdd.insertAdjacentHTML('beforeend', zoneCheckbox);
         }  
     }
@@ -208,7 +209,8 @@ function lapsus(){
         lapsuses = ["1 a 54min", "55min a 228min","229min a 275min","276min a 338min","339min a 698min"]
         for (let l = 0 ; l < filters[5].length ; l++){
             const lapsusAdd = document.getElementById('l');
-            let lapsusRadio =  '<input type="radio" name="lap" id="lapsus'+(l+1)+'" value="'+(l+1)+'">'+lapsuses[l];
+            let lapsusRadio =  '<label  class="radio-container" for="lapsus' + (l+1) + '">'+'<input type="radio" name="lap" id="lapsus'+(l+1)+'" value="'+(l+1)+'">'+
+            '<span class="txtitlebox">'+ lapsuses[l] + '</span>'+'</label>';
             lapsusAdd.insertAdjacentHTML('beforeend', lapsusRadio);
         }  
     }
@@ -222,7 +224,8 @@ function extention(){
         extentions = ["101m a 9137m", "9138m a 42363m","42364m a 57049m","57050m a 70349m","70350m a 161687"]
         for (let e = 0 ; e < filters[6].length ; e++){
             const extentionAdd = document.getElementById('e');
-            let extentionRadio =  '<input type="radio" name="ex" id="extention'+(e+1)+'" value="'+(e+1)+'">'+extentions[e];
+            let extentionRadio =  '<label  class="radio-container" for="extention' + (e+1) + '">'+'<input type="radio" name="ex" id="extention'+(e+1)+'" value="'+(e+1)+'">'+
+            '<span class="txtitlebox">'+ extentions[e] + '</span>'+'</label>';
             extentionAdd.insertAdjacentHTML('beforeend', extentionRadio);
         }  
     }
@@ -235,7 +238,8 @@ function garbageDump(){
     if (document.getElementById("garbageDump").checked){
         for (let g = 0 ; g < filters[7].length ; g++){
             const garbageDumpAdd = document.getElementById('b');
-            let garbageDumpRadio =  '<input type="radio" name="gb" id="garbageDump'+g+'" value="'+g+'">'+g; 
+            let garbageDumpRadio = '<label class="radio-container" for="garbageDump' + g + '">'+//verificar puse primero el label
+            '<input type="radio" name="gb" id="garbageDump'+g+'" value="'+g+'">'+ '<span class="txtitlebox">' + g + '</span>'+'</label>'; 
             garbageDumpAdd.insertAdjacentHTML('beforeend', garbageDumpRadio);
         }  
     }
@@ -262,6 +266,7 @@ function modify(){
     let modifyData;
     const dataAdd = document.getElementById('data');
     dataAdd.insertAdjacentHTML('beforeend', '<h3>Circuitos Totales: ' + maxMaps + '</h3>');
+    /*dataAdd.insertAdjacentHTML('beforeend', '<tr> <th>Circuito</th> <th>Vehiculo</th> <th>Mes</th> <th>Dia</th> <th>Zona</th> <th>Lapso</th> <th>Extension</th> <th>Basural</th></tr>');*/
     for (let d = 0 ; d < filters.length ; d++){
         if (d == 4){
             let compZone = all[d][mapsNum[i]-1];
@@ -296,4 +301,3 @@ function clean(){
     document.getElementById("show").innerHTML = "";
     document.getElementById("data").innerHTML = "";
 }
-
