@@ -2,84 +2,273 @@
 
 body {
     font-family: 'Titilium Web', sans-serif;
+    margin: 0;
+    background:#3d3d3d;
+    /*background-color: 	#878683;*/
 }
-
 .card-map{
-    max-width:610px;
-    
-
-
+   position: absolute;
+   left:350px;
+   /*width:100%;
+    height: 100%;*/
+    width:84%;
 }
-
-.mapa {
+.txt1{
+    /*opacity: 0;
+    visibility: hidden;*/
+   /* margin-left:300px;*/
+}
+.card-map .mapa{
     /*height:801px; 
     width:900px;*/
-    height:600px; 
+   /* width:100%;
+    height: 100%;*/
+    /*height:802px; 
+    width: 900px;*/
+    height:880px;
     width: 100%;
     Position: relative;
-    left:2px;
+}
+.form-row{
+    background:#3d3d3d;
+    height: 100%;
+    display: flex;
+  justify-content: center;
+}
+.btn1,.btn2{
+    height:35px;
+    width: 450px;
+    margin: 5px;
+    position: relative;
+    display: inline-block;
+    font-size: 1em;
+    cursor:pointer;
+    -webkit-appearance: none;
+    border-radius: 4px;
+    border: none;
+    transition: transform ease-in 0.3s;
+    color: #fff;
+    background: #4283f4;
+    
+}
+.btn1:hover,.btn2:hover{
+    background: #5791f5;
+}
+.tabla-container{
+    left:350px;
+    top:1000px;
+    position: absolute;
+}
+
+.card-container{
+    Position: fixed;
+    left:0px;
+    /*top: 60px;*/
+    height: 100vh;
+    width: 350px;
+    /*background: #2d2d2d;*/
+    background: #444444;
+    /*padding: 6px 14px;*/
+    overflow: hidden;
+    overflow-y: scroll;
+    
+    /*white-space: nowrap;*/
+
+}
+.card-container .title-content .title-name{
+    color: white;
+    display: flex;
+    width: 100%;
+    font-size: 28px;
+    font-weight: 400;
+    margin-left: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+
+}
+/*.title-content .title-name{
+    font-size: 20px;
+    font-weight: 400;
+
+}*/
+.card-container .option-container{
+
+    border-bottom: 1px solid gray;
+    /*border-top: 1px solid gray;*/
+    transition: all 400ms ease;
+    /*height:50px;*/
+    /*padding: 10px;*/
+    overflow:hidden;
+    background: #333333;
+   /* margin-top: 1px;*/
+    /*margin-bottom: 1px;*/
+    border-radius: 5px;
+}
+.sndcheckbox-container .txtitlebox{
+    color: white;
+}
+.radio-container .txtitlebox{
+    color:white;
+    /*display: flex;*/
+  justify-content: center;
+}
+.card-container .option-container .checkbox-container .txtitlebox{
+    display: inline-block;
+    transition: .3s ease;
+    color: white;
+    padding-left: 5px;
+    padding-top: 15px;
+    width: 100%;
+    height: 100%;
+}
+/*.option-container:hover{
+    border-left: 5px solid gray;
+    transition: all 400ms ease;*/
+    /*background: #c7c7c7;*/
+/*}*/
+.card-container .option-container .checkbox-container:hover{
+    border-left: 5px solid gray;
+    transition: all 400ms ease;
+    /*background: #c7c7c7;*/
+}
+/*ESTO ES PARA QUE NO APAREZCA EL CUADRO DE CHECK*/
+.filtr{
+    display: none;
+}
+
+.card-container .option-container .checkbox-container input[type="checkbox"]:checked~.txtitlebox{
+    /*background: #5b6b58c9;*/
+    background: #585f6bc9;
+    /*border-left: 5px solid rgb(0, 98, 255);*/
+    border-left: 5px solid #2069e0;
+    color: white;
+    width: 100%;
+    height: 100%;
+    /*align-items: center;*/
+}
+#vehicle:checked ~ .option-container{
+    background: #2069e0;
+}
+
+.card-container .option-container .subform{
+    /*background: #2069e0;*/
+    position: relative;
+
+
+}
+.card-container .option-container .checkbox-container{
+    border-left: 5px  solid #444444;
+    border-right: 5px solid #444444;
+    display:block;
+    Position: relative;
+    cursor:pointer;
+    /*margin-top: 15px;*/
+    /*padding: 10px;*/
+    height: 50px;
+    width: 100%;
+    list-style: none;
+    overflow: hidden;
+    background: #444444;
+    
+
+}
+.card-container .option-container .sndcheckbox-container{
+    Position: relative;
+    float:left;
+    padding: 10px;
+    transition: .3s ease;
+    cursor:pointer;
+    /*opacity:0;
+    visibility: hidden;*/
+    
+}
+.card-container .option-container .radio-container{
+    /*display:block;*/
+    float:left;
+    padding: 10px;
+    cursor:pointer;
+}
+
+.textbox {
+    Position: relative;
+    border-radius: 3px;
+   outline: none;
+    border: none;
+    height: 30px;
+    margin: 8px;
+    margin-right: 25px;
+    font-size: 15px;
+    width: 95%;
+    background:  #D3D4D9;
+}
+.card-container .btnsb{
+    display:block;
+    position: relative;
+    left: 15px;
+    /*list-style: none;
+    width: 100%;*/
+    overflow: hidden;/*esto hace que quite el float de los container*/  
+}
+.btnb1,.btnb2{
+    display: inline-block;
+    font-size: 1em;
+    /*padding: 1em 2em;*/
+    /*margin-top: 100px;*/
+    margin-bottom: 60px;
+    margin-top: 15px;
+    height: 25px;
+    width: 90px;
+    position:relative;
+    cursor:pointer;
+    -webkit-appearance: none;
+    border-radius: 4px;
+    border: none;
+    transition: transform ease-in 0.3s;
+    color: #fff;
+    margin-left: 25px;
+}
+.btnb1{
+    background: #4283f4;
+}
+
+.btnb2{
+    background: #828388;
+}
+ .btnb1:hover{
+    background: #5791f5;
+}
+
+.btnb2:hover{
+    background: #adb5bd;
+}
+.txtalert{
+    color:red;
+    margin-left:70px;
+     font-weight: bold;
+     border: black;
+    position: relative;
+    
 }
 
 .card-info{
-    Position: absolute;
-    left:200px;
-    top: 20px;
+    Position: relative;
     
 }
 .info{
     margin-bottom: 30px;
 
 }
-.textalert{
-    color:red;
-    margin-left: 20px;
-     font-weight: bold;
-     border: black;
-    
+
+
+/*scrollbar*/
+::-webkit-scrollbar{
+    width: 5px;
 }
-.card-container{
-    Position: absolute;
-    left:660px;
-    top: 60px;
-    /*background: rgb(227, 227, 227);*/
-
+::-webkit-scrollbar-track{
+    background: transparent !important;
 }
-.checkbox-container{
-    display:block;
-    Position: relative;
-    cursor:pointer;
-    margin-top: 15px;
-
-
-}
-.btn{
-    height: 30px;
-    width: 300px;
-    margin-top: 5px;
-
-}
-.btnb{
-    margin-top: 15px;
-    height: 25px;
-    width: 90px;
-
-    
-    
-}
-/*.checkbox {
-
-    Position: relative;
-
-}
-
-.txtcheckbox {
-    position: relative;
-    
-
-}*/
-
-.textbox {
-
-    Position: relative;
-    
+::-webkit-scrollbar-thumb{
+    background: #bbbbbb;
+    border-radius: 10px;
 }
