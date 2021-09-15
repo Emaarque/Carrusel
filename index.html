@@ -12,9 +12,9 @@
     <body>
         <!--<center>-->
             <div class="body-container">
-
+                <!--<h1 class="txt1" id = "data"></h1>-->
                 <div class="card-map">
-                    <!--<h1 class="txt1" id = "num"></h1>-->
+                    <!--<h1 class="txt1" id = "data"></h1>-->
                     <iframe class="mapa" id="carr" src=""></iframe>
                     <div class="form-row">
                         <button class="btn1" onclick="anterior()">Anterior</button>
@@ -22,33 +22,20 @@
                         <!--<div class="card-info" id = "data"></div>-->
                         <!--<h4 id = "alert"></h4>-->
                     </div>
-                    <!--<div>
-                        <table class="table">
-                            <tr>
-                                <th>Circuito</th>
-                                <th>Vehiculo</th>
-                                <th>Mes</th>
-                                <th>Dia</th>
-                                <th>Zona</th>
-                                <th>Lapso</th>
-                                <th>Extension</th>
-                                <th>Basural</th>
-                            </tr>
-                            <td><p id="num"></p></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <tr>
-                        </table>
-                    </div>  -->  
+                    
                 </div>
                 
-                
-
+                <div class="table-container">
+                    <div>
+                        <table id="data"></table>
+                    </div>  
+                    <div>
+                        <input type="button" class="btna2" value="Anteriores coincidencias" onclick="filtered(-10)">
+                        <input type="button" class="btna1" value="Proximas coincidencias" onclick="filtered(10)">
+                        <!--<button class="btna1" id="carr" src="">Agrandar</button>-->
+                        <a href=carr target="_BLANK">AAAAAAA</a> 
+                    </div>
+                </div>
                 <div class="card-container">
                     <div class="title-content">
                         <div class="title-name">Busqueda</div>

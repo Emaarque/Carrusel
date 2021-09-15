@@ -1,5 +1,6 @@
 let dir = "html/"
 i = 0;
+let actual = 0;
 let mapsNum = [], backUpMapsNum = [], filteredNum = []; //indicadores de mapa
 let all = [[],[],[],[],[],[],[],[]];
 let filters = [[],[],[],[],[],[],[],[]];
@@ -25,8 +26,9 @@ function ini(){
         filters[l] = [... new Set(all[l])];
     }
     backUpMapsNum = mapsNum;
-    modify();
-    }
+    modify(); 
+    filtered(actual);
+}
 
 ini();
 
@@ -36,7 +38,7 @@ function anterior(){
         i = maxMaps-1;
     }
     modify();
-    document.getElementById("alert").innerHTML = "";
+    filtered(0);
 }
 
 function siguiente(){ //funcion boton siguiente
@@ -45,7 +47,7 @@ function siguiente(){ //funcion boton siguiente
         i=0;
     }
     modify();
-    document.getElementById("alert").innerHTML = ""; //quita la alerta en caso de existir
+    filtered(0);
 }
 
 function selection(){
@@ -135,6 +137,7 @@ function selection(){
         mapsNum = filteredNum;
         i = 0;
         modify();
+        filtered(0);
     }
     else {
         document.getElementById("show").innerHTML = "Filtro sin coincidencia";
@@ -259,33 +262,62 @@ function reset(){
 
 function modify(){
     document.getElementById("carr").src = dir + maps[mapsNum[i]-1]; //modifica el enlace
-    document.getElementById("num").innerHTML = "Circuito numero: " + (mapsNum[i]); //Funcion para moficar numero de circuito
-    document.getElementById("data").innerHTML = "";
-    const labels = ["Circuito: ","Vehiculo: ","Mes: ","Dia: ","Zonas: ","Lapso: ","Extension: ","Basural: "];
+    document.getElementById("carr").href = dir + maps[mapsNum[i]-1];
+    const tableAdd = document.getElementById('data');
+    tableAdd.innerHTML = "";
+    const tableHead = '<thead> <tr> <th>Circuito</th> <th>Vehiculo</th> <th>Mes</th> <th>Dia</th> <th>Zona</th> <th>Lapso</th> <th>Extension</th> <th>Basural</th> </tr> </thead>';
+    tableAdd.insertAdjacentHTML('afterbegin', tableHead);
+    tableAdd.insertAdjacentHTML('beforeend', table(i));
+}   
+
+function filtered(fils){
+    const tableAdd = document.getElementById('data');
+    tableAdd.innerHTML = "";
+    modify();
+    actual += fils;
+    if (maxMaps < 10){
+        actual = 0;
+        console.log(actual);
+    }
+    else if (actual < 0){
+        actual = maxMaps - 10;
+        console.log(actual);
+    }
+    else if (actual + 10 > maxMaps){
+        actual = 0;
+    }
+    for (let r = actual ; r < actual+10 ; r++ ){
+        tableAdd.insertAdjacentHTML('beforeend', table(r));
+    }
+}
+
+function table(row) {
     const zones = ["1prl" , "1prp","2","3","4","5"];
-    let modifyData;
-    const dataAdd = document.getElementById('data');
-    dataAdd.insertAdjacentHTML('beforeend', '<h3>Circuitos Totales: ' + maxMaps + '</h3>');
-    /*dataAdd.insertAdjacentHTML('beforeend', '<tr> <th>Circuito</th> <th>Vehiculo</th> <th>Mes</th> <th>Dia</th> <th>Zona</th> <th>Lapso</th> <th>Extension</th> <th>Basural</th></tr>');*/
+    const tableAdd = document.getElementById('data');
+    let tableMaps;
+    tableMaps = '<tr>';
     for (let d = 0 ; d < filters.length ; d++){
         if (d == 4){
-            let compZone = all[d][mapsNum[i]-1];
-            modifyData =  '<h3>' + labels[d];
+            let compZone = all[d][mapsNum[row]-1];
+            tableMaps +=  '<td>';
             for (z = 0; z < filters[d][0].length; z++){
                 if (compZone[z] == "1"){
-                    modifyData = modifyData + zones[z] +", ";
+                    tableMaps = tableMaps + zones[z] +", ";
                 }
             }
-            modifyData = modifyData.replace(/,\s$/, "");
-            modifyData = modifyData.replace(/,(?=\s(?=\d(?=\s*$)))/, " y");
-            modifyData = modifyData.replace(/:\s$/, ": Indefinida");
-            modifyData = modifyData + '</h3>';
+            tableMaps = tableMaps.replace(/,\s$/, "");
+            tableMaps = tableMaps.replace(/,(?=\s(?=\d(?=\s*$)))/, " y");
+            //modifyData = modifyData.replace(NULL, "Indefinida");
+            tableMaps = tableMaps + '</td>';
         }
         else if (d != 4) {
-            modifyData =  '<h3>' + labels[d] + Number(all[d][mapsNum[i]-1]) + '</h3>';
+            tableMaps +=  '<td>' + Number(all[d][mapsNum[row]-1]) + '</td>';
         }
-        dataAdd.insertAdjacentHTML('beforeend', modifyData);
-    }  
+        
+    }
+    tableMaps += '</tr>';            
+    
+    return tableMaps;
 }
 
 function clean(){
@@ -300,4 +332,5 @@ function clean(){
     }
     document.getElementById("show").innerHTML = "";
     document.getElementById("data").innerHTML = "";
+    actual = 0;
 }
